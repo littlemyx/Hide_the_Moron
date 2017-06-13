@@ -38,25 +38,36 @@ function addEyes(){
 
 var groupeButton = document.querySelector(".im-page--aside-photo .nim-peer");
 
-groupeButton.addEventListener("click",()=>{
-	var target = document.querySelector(".box_body");
+groupeButton.addEventListener("click",(()=>{
+		var reflection = ()=>{
+			var target = document.querySelector(".box_body");
+			if(target == null){
+				setTimeout(reflection,100);
+				return;
+			}
 
-	var observer = new MutationObserver(function(mutations) {
-	  mutations.forEach(function(mutation) {
-	  	console.log("mutation triggered")
-	    addEyes();
-	  });    
-	});
+			var observer = new MutationObserver(function(mutations) {
+				  mutations.forEach(function(mutation) {
+				  	console.log("mutation triggered")
+				    addEyes();
+				  });    
+			});
+
+			// configuration of the observer:
+			var config = {  childList: true, characterData: true };
+			 
+			// pass in the target node, as well as the observer options
+			observer.observe(target, config);
+			 
+			// later, you can stop observing
+			//observer.disconnect();
+		}
+		return reflection;
+		}) ()
+	);
 	 
-	// configuration of the observer:
-	var config = {  childList: true, characterData: true };
-	 
-	// pass in the target node, as well as the observer options
-	observer.observe(target, config);
-	 
-	// later, you can stop observing
-	observer.disconnect();
-});
+	
+
 
 
 
