@@ -7,7 +7,7 @@
   "content_scripts": [
     {
       "matches": [ "https://vk.com/im*" ],
-      "css":["steamspy.css"],
+      "css":["htm.css"],
       "js": [ "popup.js" ]
 
     }
@@ -21,7 +21,9 @@
 
   "web_accessible_resources":
     [
-        "icons/InvisibilityHat.png"
+        "icons/eye_open_blue_with_lines.png",
+        "icons/eye_close_blue.png"
+       
         
     ],
 

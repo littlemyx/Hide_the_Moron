@@ -1,0 +1,19 @@
+._htm_eyeButtonOpen{
+    position: absolute;
+    background-image: url("chrome-extension://ndjfffemhgkboojamhenndhcdapdmnfb/icons/eye_open_blue_with_lines.png");	
+    left: -1.4rem;
+    height: 20px;
+    width: 20px;
+    top: 1.6rem;
+    cursor: pointer;
+}
+
+._htm_eyeButtonOpen:hover{
+    position: absolute;
+    background-image: url("chrome-extension://ndjfffemhgkboojamhenndhcdapdmnfb/icons/eye_close_blue.png");	
+    left: -1.4rem;
+    height: 20px;
+    width: 20px;
+    top: 1.6rem;
+    cursor: pointer;
+}

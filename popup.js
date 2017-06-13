@@ -23,13 +23,19 @@ function addStyleSeet(identificates){
 }
 
 function addEyes(){
+	var t = chrome.runtime.getURL("icons/eye_open.png");;
 
-	var members = document.querySelectorAll(".im-member-item.clear_fix");
+	var members = document.querySelectorAll(".im-member-item.clear_fix .im-member-item--name");
 
-	var member;
+	var member, eye;
 
 	for(var i = 1; i< members.length; i++){
-		member = 5;
+		eye = document.createElement("div");
+		eye.className = "_htm_eyeButtonOpen";
+
+		member = members[i];
+
+		member.appendChild(eye);
 	}
 }
 
@@ -44,6 +50,7 @@ groupeButton.addEventListener("click",(()=>{
 			if(target == null){
 				setTimeout(reflection,100);
 				return;
+
 			}
 
 			var observer = new MutationObserver(function(mutations) {
