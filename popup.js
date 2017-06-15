@@ -128,6 +128,60 @@ function addEyes(){
 	}
 }
 
+function firstSteps(){
+	var params = window.location.search.split("&");
+
+	var chatNum = params.find((element, index, array)=>{
+		if(!(element.indexOf("sel") == 1)){
+			return false;
+		}
+		else{
+			return true;
+		}
+	}).split("=")[1];
+
+
+	var cook = getCookie("HideTheMoron");
+
+	var data = cook && JSON.parse(cook) || {};
+
+	if(Object.keys(data).length){
+		addStyleSeet(data[chatNum]);
+	}
+
+	var groupeButton = document.querySelector(".im-page--aside-photo .nim-peer");
+
+	groupeButton.addEventListener("click",(()=>{
+			var reflection = ()=>{
+				var target = document.querySelector(".box_body");
+				if(target == null){
+					setTimeout(reflection,100);
+					return;
+
+				}
+
+				var observer = new MutationObserver(function(mutations) {
+					  mutations.forEach(function(mutation) {
+					  	console.log("mutation triggered")
+					    addEyes();
+					  });    
+				});
+
+				// configuration of the observer:
+				var config = {  childList: true, characterData: true };
+				 
+				// pass in the target node, as well as the observer options
+				observer.observe(target, config);
+				 
+				// later, you can stop observing
+				//observer.disconnect();
+			}
+			return reflection;
+			}) ()
+	);
+
+}
+
 function init(){
 	// addStyleSeet(['77647179',11504926]);	
 	// console.log(window.location.href);
@@ -137,63 +191,21 @@ function init(){
 	//   }
 	// );
 
+	var location = window.location.href;
 
+	if(location.indexOf("sel=c") > -1){
+		firstSteps();
+	}
+	
 	var port = chrome.runtime.connect({name: "HideTheMoron"});
-		port.postMessage({joke: "Knock knock"});
-		port.onMessage.addListener(function(msg) {
-			var params = window.location.search.split("&");
 
-			var chatNum = params.find((element, index, array)=>{
-				if(!(element.indexOf("sel") == 1)){
-					return false;
-				}
-				else{
-					return true;
-				}
-			}).split("=")[1];
+	//port.postMessage({joke: "Knock knock"});
 
+	port.onMessage.addListener(function(msg) {
+		console.log(msg);
+		firstSteps();
+	});
 
-			var cook = getCookie("HideTheMoron");
-
-			var data = cook&&JSON.parse(cook) || {};
-
-			if(Object.keys(data).length){
-				addStyleSeet(data[chatNum]);
-			}
-
-			var groupeButton = document.querySelector(".im-page--aside-photo .nim-peer");
-
-			groupeButton.addEventListener("click",(()=>{
-					var reflection = ()=>{
-						var target = document.querySelector(".box_body");
-						if(target == null){
-							setTimeout(reflection,100);
-							return;
-
-						}
-
-						var observer = new MutationObserver(function(mutations) {
-							  mutations.forEach(function(mutation) {
-							  	console.log("mutation triggered")
-							    addEyes();
-							  });    
-						});
-
-						// configuration of the observer:
-						var config = {  childList: true, characterData: true };
-						 
-						// pass in the target node, as well as the observer options
-						observer.observe(target, config);
-						 
-						// later, you can stop observing
-						//observer.disconnect();
-					}
-					return reflection;
-					}) ()
-			);
-
-			console.log(response.farewell);
-		});
 
 	// chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
 	  

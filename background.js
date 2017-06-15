@@ -54,14 +54,17 @@ chrome.runtime.onConnect.addListener(function(port) {
   	});
 
     chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-    	if(origin_id !== tabId) {
+    	if(origin_id !== tabId || changeInfo.status != "complete") {
     		return;
     	}
 	  	chrome.tabs.get(tabId, function(tab) {
-	        var diff = getDifference(origin_url, tab.url);
+	        //var diff = getDifference(origin_url, tab.url);
 
-	        if(diff.indexOf("sel") > -1){
-	        	port.postMessage({question: "it is the time to start"});
+	        if(tab.url.indexOf("sel=c") > -1){
+	        	var date = new Date();
+	        	var msg = "it is the time to start" + date;
+	        	console.log(msg);
+	        	port.postMessage({question: msg});
 	        }
 
 		});
