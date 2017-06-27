@@ -44,7 +44,7 @@ chrome.runtime.onMessage.addListener(
 
 
 chrome.runtime.onConnect.addListener(function(port) {
-
+	console.log("listener " + (new Date()));
 	console.assert(port.name == "HideTheMoron");
 	var origin_url = port.sender.tab.url;
     var origin_id = port.sender.tab.id;
@@ -54,10 +54,12 @@ chrome.runtime.onConnect.addListener(function(port) {
   	});
 
     chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+    		console.log("tab listener " + (new Date()));
     	if(origin_id !== tabId || changeInfo.status != "complete") {
     		return;
     	}
 	  	chrome.tabs.get(tabId, function(tab) {
+	  			console.log("tabId listener " + (new Date()));
 	        //var diff = getDifference(origin_url, tab.url);
 
 	        if(tab.url.indexOf("sel=c") > -1){

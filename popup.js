@@ -67,6 +67,8 @@ function clearStyleSheet(){
 }
 
 function addEyes(){
+	//alert("add Eyes " + (new Date()));	
+	console.log("add Eyes " + (new Date()));		
 	var t = chrome.runtime.getURL("icons/eye_open.png");;
 
 	var members = document.querySelectorAll(".im-member-item.clear_fix .im-member-item--name");
@@ -129,6 +131,9 @@ function addEyes(){
 }
 
 function firstSteps(){
+	//alert("first Steps " + (new Date()));
+	console.log("first Steps " + (new Date()));
+	//debugger;
 	var params = window.location.search.split("&");
 
 	var chatNum = params.find((element, index, array)=>{
@@ -148,8 +153,10 @@ function firstSteps(){
 	if(Object.keys(data).length){
 		addStyleSeet(data[chatNum]);
 	}
-
-	var groupeButton = document.querySelector(".im-page--aside-photo .nim-peer");
+	setTimeout(function(){
+	var groupeButton ;
+	groupeButton = document.querySelector(".im-page--aside-photo .nim-peer");
+	console.log(groupeButton);
 
 	groupeButton.addEventListener("click",(()=>{
 			var reflection = ()=>{
@@ -180,9 +187,14 @@ function firstSteps(){
 			}) ()
 	);
 
+	}, 100);	
+
 }
 
 function init(){
+	//alert("init " + (new Date()));
+	console.log("init " + (new Date()));
+	debugger;
 	// addStyleSeet(['77647179',11504926]);	
 	// console.log(window.location.href);
 	// chrome.tabs.onUpdated.addListener(
@@ -193,16 +205,17 @@ function init(){
 
 	var location = window.location.href;
 
-	if(location.indexOf("sel=c") > -1){
-		firstSteps();
-	}
+	// if(location.indexOf("sel=c") > -1){
+	// 	firstSteps();
+	// }
 	
 	var port = chrome.runtime.connect({name: "HideTheMoron"});
 
 	//port.postMessage({joke: "Knock knock"});
 
 	port.onMessage.addListener(function(msg) {
-		console.log(msg);
+		console.log("port Listener " + (new Date()));
+		//console.log(msg);
 		firstSteps();
 	});
 
